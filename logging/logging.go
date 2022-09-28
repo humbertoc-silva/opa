@@ -188,8 +188,11 @@ func (l *NoOpLogger) GetLevel() Level {
 
 type requestContextKey string
 
+// ReqCtxKey is the key used to access the request context.
 const ReqCtxKey = requestContextKey("request-context-key")
 
+// RequestContext represents the request context used to store data 
+// related to the request that could be used on logs.
 type RequestContext struct {
 	ClientAddr string
 	ReqID      uint64
@@ -197,6 +200,7 @@ type RequestContext struct {
 	ReqPath    string
 }
 
+// Fields adapts the RequestContext fields to logrus.Fields.
 func (rctx RequestContext) Fields() logrus.Fields {
 	return logrus.Fields{
 		"client_addr": rctx.ClientAddr,

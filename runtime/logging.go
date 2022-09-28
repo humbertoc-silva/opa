@@ -53,26 +53,6 @@ func (h *LoggingHandler) loggingEnabled(level logging.Level) bool {
 	return level <= h.logger.GetLevel()
 }
 
-// type requestContextKey string
-
-// const reqCtxKey = requestContextKey("request-context-key")
-
-// type requestContext struct {
-// 	ClientAddr string
-// 	ReqID      uint64
-// 	ReqMethod  string
-// 	ReqPath    string
-// }
-
-// func (rctx requestContext) Fields() logrus.Fields {
-// 	return logrus.Fields{
-// 		"client_addr": rctx.ClientAddr,
-// 		"req_id":      rctx.ReqID,
-// 		"req_method":  rctx.ReqMethod,
-// 		"req_path":    rctx.ReqPath,
-// 	}
-// }
-
 func (h *LoggingHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var rctx logging.RequestContext
 	rctx.ReqID = atomic.AddUint64(&h.requestID, uint64(1))
